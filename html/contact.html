@@ -103,6 +103,8 @@
     <!-- jQuery CDN -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+
 
     <!-- Bootstrap CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -121,6 +123,48 @@
         window.location = "https://dashboard.heroku.com/account"
       })
 
+
+ // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA7TSnd7zaVNcLk2cRsz1cdyDYk5Fz0Tmc",
+    authDomain: "porfolio-f23df.firebaseapp.com",
+    databaseURL: "https://porfolio-f23df.firebaseio.com",
+    projectId: "porfolio-f23df",
+    storageBucket: "porfolio-f23df.appspot.com",
+    messagingSenderId: "684455875489"
+  };
+  firebase.initializeApp(config);
+  
+    // Create a variable to reference the database
+    var database = firebase.database();
+    var name = "";
+    var email = "";
+    var message = "";
+    
+  $("submit-btn").on("click", function(){
+    event.preventDefault();
+      
+    var newName = $("#name-input").val().trim();
+    var newEmail = $("#mail-input").val().trim();
+    var newMessage = $("#msg").val().trim();
+
+
+    // send new data to firebase
+    database.ref().push({
+        name: newName,
+        email: newEmail,
+        message: newMessage,
+    });
+  });
+    
+    // snapshot of child_added, we will use these figures for our calculations/data manipulation
+    // database.ref().on("child_added", function(snapshot){
+    //   var calcTime = snapshot.val().time
+    //   var calcFreq = snapshot.val().frequency
+    //   console.log(calcTime)
+    //   console.log(calcFreq)
+
+    // })
 
 
 
